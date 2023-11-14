@@ -19,7 +19,7 @@ main {
   margin: 20px auto;
 }
 
-button {
+#search-btn {
   background: #555;
   color: #fff;
   border: none;
@@ -27,13 +27,18 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#search-btn:hover {
   background: #444;
 }
 
 input[type="text"] {
   padding: 10px;
   margin: 10px 0;
+}
+
+.tile {
+  background-color: #555;
+  color: white;
 }
 
 /* #search {
