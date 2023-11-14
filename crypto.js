@@ -5,6 +5,10 @@ var cryptoDiv = document.getElementById("crypto-container");
 var selectField = document.getElementById("crypto");
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 
+//dynamic html elements
+
+var warningPopUp = " <div class='notification is-danger'><button class='delete'></button>Error: (Insert Status Code)</div>"
+
 function loadCryptoUrl() {
   fetch(cryptoUrl, {
     method: "GET",

@@ -19,7 +19,7 @@ main {
   margin: 20px auto;
 }
 
-button {
+#search-btn {
   background: #555;
   color: #fff;
   border: none;
@@ -27,7 +27,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#search-btn:hover {
   background: #444;
 }
 
