@@ -36,6 +36,11 @@ input[type="text"] {
   margin: 10px 0;
 }
 
+.tile {
+  background-color: #555;
+  color: white;
+}
+
 /* #search {
   margin-bottom: 20px;
 } */

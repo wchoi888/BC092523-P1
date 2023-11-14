@@ -5,9 +5,11 @@ var cryptoDiv = document.getElementById("crypto-container");
 var selectField = document.getElementById("crypto");
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 
-//dynamic html elements
-
+//DYNAMIC HTML ELEMENTS
+//Insert status code and append main element
 var warningPopUp = " <div class='notification is-danger'><button class='delete'></button>Error: (Insert Status Code)</div>"
+//Insert conversion api data and append the conversion-text container
+var conversionTile = "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>"
 
 function loadCryptoUrl() {
   fetch(cryptoUrl, {
