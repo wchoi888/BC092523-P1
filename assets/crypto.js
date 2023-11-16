@@ -8,6 +8,7 @@ var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fe
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 var currentCryptoContainer = document.querySelector(".currentCrypto-container");
 
+
 //DYNAMIC HTML ELEMENTS
 //Insert status code and append main element
 var warningPopUp =
@@ -212,10 +213,12 @@ function processData(response) {
 //Defines a function that searches for a cryptocurrency based on the input in the search field.
 function searchCurrencies() {
   var searchValue = searchField.value.trim();
+
   if (searchValue === "") {
-    console.error("Search field is empty");
-    return;
-  }
+      console.error("Search field is empty");
+      return;
+    }
+
   var index = cryptoData.findIndex(function (item) {
     return item.id === searchField.value;
   });
