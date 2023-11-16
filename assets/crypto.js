@@ -1,6 +1,6 @@
 //Retrieves the HTML element with the ID "search-btn", ID "conversion-text", IDs "crypto" and "searchCrypto" and assigns them to the variables selectField (a dropdown menu) and searchField (an input field for searching cryptocurrencies).
 var searchBtn = document.getElementById("search-btn");
-var cryptoText = document.getElementById("conversion-text");
+var cryptoText = document.getElementById("tile-container");
 var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
 //Defines two URLs for API endpoints. cryptoUrl is for fetching cryptocurrency data from the CoinCap API, and currenciesUrl is for fetching fiat currency data from the ExchangeRate-API.
