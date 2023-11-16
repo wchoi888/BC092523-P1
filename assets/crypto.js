@@ -1,10 +1,17 @@
+//DOM elements
 var searchBtn = document.getElementById("search-btn");
 var cryptoText = document.getElementById("tile-container");
 var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
+var USDCryptoContainer = document.getElementsByClassName("currentCrypto-container")[0];
+
+//API urls
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
-var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
+
+//Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
+var cryptoData; 
+
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
 //DYNAMIC HTML ELEMENTS
@@ -15,7 +22,7 @@ var warningPopUp =
 var conversionTile =
   "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>";
 //Insert name,symbol,rank, and then USD price, supply, USD market cap and append to currentCrypto-container
-var currentCryptoEl = "<h1>+name+ (+symbol+)</h1><p>Price: +price+</p><p>Supply: +supply+</p><p>Market Cap: +humidity+</p>";
+var currentCryptoEl = "<h1>+name+ (+symbol+)</h1><p>Price: +price+</p><p>Supply: +supply+</p><p>Market Cap: +market_cap+</p>";
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
 
@@ -24,18 +31,25 @@ function displayCrypto(response, crypto) {
   var cryptoValues = crypto.split(", ");
   var cryptoId = cryptoValues[0];
   var cryptoSymbol = cryptoValues[1];
+
   //this line of code is searching for the index of an element in the cryptoData array where the id property matches the value of cryptoId. The result is stored in the variable index.
   var index = cryptoData.findIndex(function (item) {
     return item.id === cryptoId;
   });
+ 
+  //main display
   var cryptoUsd = cryptoData[index].priceUsd;
+  var marketCapUSD = cryptoData[index].marketCapUsd;
+  var cryptoSupply = cryptoData[index].supply;
+  var cryptoName = cryptoData[index].name;
+
+
+  USDCryptoContainer.textContent = "";
+  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+")</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply+"</p><p>Market Cap: $"+marketCapUSD+"</p>";
+  USDCryptoContainer.innerHTML= currentCryptoEl;
+
+  //Converted Displays
   cryptoText.textContent = "";
-  var currenciesDiv = document.createElement("h3");
-  currenciesDiv.textContent = cryptoId + " " + cryptoSymbol;
-  cryptoText.append(currenciesDiv);
-  var usdDiv = document.createElement("p");
-  usdDiv.innerHTML = "$" + cryptoUsd;
-  cryptoText.append(usdDiv);
   var eurDiv = document.createElement("p");
   eurDiv.innerHTML = "&euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
   cryptoText.append(eurDiv);
