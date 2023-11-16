@@ -1,12 +1,11 @@
-//Retrieves the HTML element with the ID "search-btn", ID "conversion-text", IDs "crypto" and "searchCrypto" and assigns them to the variables selectField (a dropdown menu) and searchField (an input field for searching cryptocurrencies).
 var searchBtn = document.getElementById("search-btn");
-var cryptoText = document.getElementById("conversion-text");
+var cryptoText = document.getElementById("tile-container");
 var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
-//Defines two URLs for API endpoints. cryptoUrl is for fetching cryptocurrency data from the CoinCap API, and currenciesUrl is for fetching fiat currency data from the ExchangeRate-API.
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
 var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
+var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
 //DYNAMIC HTML ELEMENTS
 //Insert status code and append main element
@@ -44,6 +43,23 @@ function displayCrypto(response, crypto) {
   var gbpDiv = document.createElement("p");
   gbpDiv.innerHTML = "&pound;" + cryptoCurrenciesData.GBP * cryptoUsd;
   cryptoText.append(gbpDiv);
+  saveSearch(crypto);
+}
+function saveSearch(searchTerm) {
+  previousSearches.push(searchTerm);
+  localStorage.setItem("cryptoSearches", JSON.stringify(previousSearches));
+  displayPreviousSearches();
+}
+
+function displayPreviousSearches() {
+  previousSearchesContainer.innerHTML = "";
+  var ul = document.createElement("ul");
+  previousSearches.forEach(function (searchTerm) {
+    var li = document.createElement("li");
+    li.textContent = searchTerm;
+    ul.appendChild(li);
+  });
+  previousSearchesContainer.appendChild(ul);
 }
 
 //Defines a function loadCryptoUrl responsible for fetching cryptocurrency data from the CoinCap API.
@@ -99,6 +115,29 @@ function loadFiatCurrencies() {
     });
 }
 
+function searchCurrencies() {
+  var searchValue = searchField.value.trim();
+  if (searchValue === "") {
+    console.error("Search field is empty");
+    return;
+  }
+  var index = cryptoData.findIndex(function (item) {
+    return item.id === searchValue;
+  });
+
+  if (index < 0) {
+    index = cryptoData.findIndex(function (item) {
+      return item.symbol === searchValue;
+    });
+  }
+
+  if (index < 0) {
+    console.error("Cryptocurrency not found:", searchValue);
+    return;
+  }
+  selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
+  loadFiatCurrencies();
+}
 //Defines a function for processing the fetched cryptocurrency data and populating the dropdown menu with options.
 
 function processData(response) {
@@ -117,6 +156,11 @@ function processData(response) {
 }
 //Defines a function that searches for a cryptocurrency based on the input in the search field.
 function searchCurrencies() {
+  var searchValue = searchField.value.trim();
+    if (searchValue === "") {
+      console.error("Search field is empty");
+      return;
+    }
   var index = cryptoData.findIndex(function (item) {
     return item.id === searchField.value;
   });
@@ -125,6 +169,10 @@ function searchCurrencies() {
     index = cryptoData.findIndex(function (item) {
       return item.symbol === searchField.value;
     });
+  }
+  if (index < 0) {
+    console.error("Cryptocurrency not found:", searchValue);
+    return;
   }
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
   loadFiatCurrencies();
