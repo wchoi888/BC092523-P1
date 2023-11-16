@@ -12,29 +12,30 @@
         <h1>Cryptocurrency Tracker</h1>
     </header>
    <main>
+      <div class="left-column"></div>
          <div id="search">
             <h2>Search for a Cryptocurrency</h2>
             <select id="crypto"></select>
             <input type="text" id="searchCrypto">
             <button id="search-btn">search</button>
          </div>
-         <div id="crypto-container">
+         <div class="storedCrypto-container">
             
          </div>
-         <div id="container">
-            <div id="current-crypto">
+      </div>
+      <div id="center-column">
+         <div class="currentCrypto-container">
                
-            </div>
-            <div>
-               <h2>Cryptocurrency conversion against 4 major fiat currencies</h2>
-            </div>
-            <div id="conversion-text">
-
-
-
-            </div>
-            <div id="previousSearchesContainer"></div>
          </div>
+         <div class="conversion-container">
+            <h2>Cryptocurrency conversion against 4 major fiat currencies</h2>
+            <div id="tile-container">
+
+
+            </div>
+
+         </div>
+      </div>
    </main>
 
  </body>
