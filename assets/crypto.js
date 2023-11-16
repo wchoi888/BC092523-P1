@@ -15,6 +15,8 @@ var warningPopUp =
 //Insert conversion api data and append the conversion-text container
 var conversionTile =
   "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>";
+//Insert name,symbol,rank, and then USD price, supply, USD market cap and append to currentCrypto-container
+var currentCryptoEl = "<h1>+name+ (+symbol+)</h1><p>Price: +price+</p><p>Supply: +supply+</p><p>Market Cap: +humidity+</p>";
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
 
