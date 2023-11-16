@@ -1,29 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
- <title>Cryptocurrency Conversion Tracker</title>
- <link rel="stylesheet"href="style.css"/>
- </head>
- <body onload="loadCryptoUrl()">
- <header><h1>Cryptocurrency Conversion Tracker</h1></header>
- <main>
- <div id="search">
-    <h2>Search for a cryptocurrency conversion: </h2>
- <select id="crypto"></select>
-<input type="text" id="searchCrypto" />
- <button id="search-btn">search</button>
- <div id="crypto-container"></div>
- </div id="container">
- <div>
- <div id="current-crypto"></div>
- <div><h3>Cryptocurrency conversion into 4 major fiat currencies</h3></div>
- <div id="conversion-text"></div>
- </div>
- </main>
- </body>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cryptocurrency Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="assets/style.css"/>
+</head>
 
- <script src="crypto.js"></script>
+<body onload="loadCryptoUrl()">
+    <header class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">Cryptocurrency Tracker</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div id="search" class="field">
+                    <h2 class="subtitle">Search for a Cryptocurrency</h2>
+                    <div class="control">
+                        <select id="crypto" class="select"></select>
+                    </div>
+                    <div class="field has-addons">
+                        <div class="control is-expanded mt-5">
+                            <input type="text" id="searchCrypto" class="input">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-info" id="search-btn">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="crypto-container" class="content"></div>
+
+                <div id="container" class="columns">
+                    <div id="current-crypto" class="column is-half"></div>
+                    <div class="column is-half"> 
+                        <h2 class="subtitle">Cryptocurrency Conversion Against 4 Major Fiat Currencies</h2>
+                        <div id="conversion-text" class="content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/crypto.js"></script>
+</body>
 </html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cryptocurrency Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet"href="assets/style.css"/>
+ </head>
+
+ <body onload="loadCryptoUrl()">
+    <header>
+        <h1>Cryptocurrency Tracker</h1>
+    </header>
+   <main>
+         <div id="search">
+            <h2>Search for a Cryptocurrency</h2>
+            <select id="crypto"></select>
+            <input type="text" id="searchCrypto">
+            <button class="button" id="search-btn">search</button>
+         </div>
+         <div id="crypto-container">
+            
+         </div>
+         <div id="container">
+            <div id="current-crypto">
+               
+            </div>
+            <div>
+               <h2>Cryptocurrency conversion against 4 major fiat currencies</h2>
+            </div>
+            <div class="column is-mobile" id="conversion-text">
+
+
+
+            </div>
+         </div>
+   </main>
+
+ </body>
+ <script src="assets/crypto.js"></script>
+</html> -->
