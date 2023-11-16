@@ -117,6 +117,29 @@ function loadFiatCurrencies() {
     });
 }
 
+function searchCurrencies() {
+  var searchValue = searchField.value.trim();
+  if (searchValue === "") {
+    console.error("Search field is empty");
+    return;
+  }
+  var index = cryptoData.findIndex(function (item) {
+    return item.id === searchValue;
+  });
+
+  if (index < 0) {
+    index = cryptoData.findIndex(function (item) {
+      return item.symbol === searchValue;
+    });
+  }
+
+  if (index < 0) {
+    console.error("Cryptocurrency not found:", searchValue);
+    return;
+  }
+  selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
+  loadFiatCurrencies();
+}
 //Defines a function for processing the fetched cryptocurrency data and populating the dropdown menu with options.
 
 function processData(response) {
@@ -135,6 +158,11 @@ function processData(response) {
 }
 //Defines a function that searches for a cryptocurrency based on the input in the search field.
 function searchCurrencies() {
+  var searchValue = searchField.value.trim();
+    if (searchValue === "") {
+      console.error("Search field is empty");
+      return;
+    }
   var index = cryptoData.findIndex(function (item) {
     return item.id === searchField.value;
   });
@@ -143,6 +171,10 @@ function searchCurrencies() {
     index = cryptoData.findIndex(function (item) {
       return item.symbol === searchField.value;
     });
+  }
+  if (index < 0) {
+    console.error("Cryptocurrency not found:", searchValue);
+    return;
   }
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
   loadFiatCurrencies();
