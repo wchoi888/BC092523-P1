@@ -23,8 +23,7 @@ var warningPopUp =
 //Insert conversion api data and append the conversion-text container
 var conversionTile =
   "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>";
-//Insert name,symbol,rank, and then USD price, supply, USD market cap and append to currentCrypto-container
-var currentCryptoEl = "<h1>+name+ (+symbol+)</h1><p>Price: +price+</p><p>Supply: +supply+</p><p>Market Cap: +market_cap+</p>";
+
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
 
@@ -38,27 +37,21 @@ function displayCrypto(response, crypto) {
   var index = cryptoData.findIndex(function (item) {
     return item.id === cryptoId;
   });
-  var cryptoRank = cryptoData[index].rank;
- 
-  //main display
+  
+  //Main display
+  var cryptoName = cryptoData[index].name;
   var cryptoUsd = cryptoData[index].priceUsd;
   var cryptoSupply = cryptoData[index].supply;
   var cryptoMktCapUsd = cryptoData[index].marketCapUsd;
+  var cryptoRank = cryptoData[index].rank;
+
   cryptoText.textContent = "";
   currentCryptoContainer.textContent = "";
-  var currenciesDiv = document.createElement("h3");
-  currenciesDiv.textContent =
-    cryptoId + " " + "(" + cryptoSymbol + ")" + " " + "#" + cryptoRank;
-  currentCryptoContainer.append(currenciesDiv);
-  var usdDiv = document.createElement("p");
-  usdDiv.innerHTML = "$" + cryptoUsd;
-  currentCryptoContainer.append(usdDiv);
-  var supplyDiv = document.createElement("p");
-  supplyDiv.innerHTML = "supply: " + cryptoSupply;
-  currentCryptoContainer.append(supplyDiv);
-  var marketCapDiv = document.createElement("p");
-  marketCapDiv.innerHTML = "marketcap: " + cryptoMktCapUsd;
-  currentCryptoContainer.append(marketCapDiv);
+
+  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p>";
+  currentCryptoContainer.innerHTML = currentCryptoEl;
+
+  //Conversion Display
   var eurContainer = document.createElement("div");
   cryptoText.append(eurContainer);
   var eurTitle = document.createElement("h3");
