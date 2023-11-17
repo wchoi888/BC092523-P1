@@ -86,6 +86,15 @@ function displayPreviousSearches() {
     var li = document.createElement("li");
     li.textContent = searchTerm;
     ul.appendChild(li);
+    li.addEventListener('click', function(){
+
+      for(let i = 0; i < selectField.options.length; i++ ){
+        if (selectField.options[i].text === searchTerm) {
+          selectField.options[i].selected = true;
+        }
+      }
+      loadFiatCurrencies()
+    });
   });
   previousSearchesContainer.appendChild(ul);
 }
