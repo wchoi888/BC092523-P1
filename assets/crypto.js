@@ -4,7 +4,7 @@ var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
-var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
+var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API. Is this even needed?
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
 //DYNAMIC HTML ELEMENTS
@@ -114,31 +114,6 @@ function loadFiatCurrencies() {
       }
     });
 }
-
-function searchCurrencies() {
-  var searchValue = searchField.value.trim();
-  if (searchValue === "") {
-    console.error("Search field is empty");
-    return;
-  }
-  var index = cryptoData.findIndex(function (item) {
-    return item.id === searchValue;
-  });
-
-  if (index < 0) {
-    index = cryptoData.findIndex(function (item) {
-      return item.symbol === searchValue;
-    });
-  }
-
-  if (index < 0) {
-    console.error("Cryptocurrency not found:", searchValue);
-    return;
-  }
-  selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
-  loadFiatCurrencies();
-}
-//Defines a function for processing the fetched cryptocurrency data and populating the dropdown menu with options.
 
 function processData(response) {
   selectField.innerHTML = "";
