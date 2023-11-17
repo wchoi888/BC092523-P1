@@ -9,6 +9,8 @@
 </head>
 
 <body onload="loadCryptoUrl()">
+
+    <!-- Using Bulma to impose a banner -->
     <header class="hero is-primary">
         <div class="hero-body">
             <h1 class="title">Cryptocurrency Tracker</h1>
@@ -18,9 +20,19 @@
     <main>
         <section class="section">
             <div class="container">
+                
                 <div id="search" class="field">
-                    <h2 class="subtitle">Search for a Cryptocurrency</h2>
+                    <h2 class="subtitle">Search for a <strong>Cryptocurrency</strong></h2>
                     <div class="control">
+                <aside class="menu">
+                    <p class="menu-label">
+                        Choose Search Option
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Toggle</a></li>
+                        <li><a>Search</a></li>
+                    </ul>
+                </aside>        
                         <select id="crypto" class="select"></select>
                     </div>
                     <div class="field has-addons">
