@@ -125,7 +125,7 @@ function displayCrypto(response, crypto) {
   inrmktCapDiv.innerHTML =
     "MarketCap: &#8377;" + cryptoCurrenciesData.INR * cryptoMktCapUsd;
   inrContainer.append(inrmktCapDiv);
-  */
+
 
   saveSearch(crypto);
 }
