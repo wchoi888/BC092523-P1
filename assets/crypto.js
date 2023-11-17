@@ -6,6 +6,8 @@ var cryptoUrl = "https://api.coincap.io/v2/assets";
 var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
 var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
+var currentCryptoContainer = document.querySelector(".currentCrypto-container");
+
 
 //DYNAMIC HTML ELEMENTS
 //Insert status code and append main element
@@ -26,23 +28,77 @@ function displayCrypto(response, crypto) {
   var index = cryptoData.findIndex(function (item) {
     return item.id === cryptoId;
   });
+  var cryptoRank = cryptoData[index].rank;
   var cryptoUsd = cryptoData[index].priceUsd;
+  var cryptoSupply = cryptoData[index].supply;
+  var cryptoMktCapUsd = cryptoData[index].marketCapUsd;
   cryptoText.textContent = "";
+  currentCryptoContainer.textContent = "";
   var currenciesDiv = document.createElement("h3");
-  currenciesDiv.textContent = cryptoId + " " + cryptoSymbol;
-  cryptoText.append(currenciesDiv);
+  currenciesDiv.textContent =
+    cryptoId + " " + "(" + cryptoSymbol + ")" + " " + "#" + cryptoRank;
+  currentCryptoContainer.append(currenciesDiv);
   var usdDiv = document.createElement("p");
   usdDiv.innerHTML = "$" + cryptoUsd;
-  cryptoText.append(usdDiv);
+  currentCryptoContainer.append(usdDiv);
+  var supplyDiv = document.createElement("p");
+  supplyDiv.innerHTML = "supply: " + cryptoSupply;
+  currentCryptoContainer.append(supplyDiv);
+  var marketCapDiv = document.createElement("p");
+  marketCapDiv.innerHTML = "marketcap: " + cryptoMktCapUsd;
+  currentCryptoContainer.append(marketCapDiv);
+  var eurContainer = document.createElement("div");
+  cryptoText.append(eurContainer);
+  var eurTitle = document.createElement("h3");
+  eurTitle.textContent = "Euro";
+  eurContainer.append(eurTitle);
   var eurDiv = document.createElement("p");
-  eurDiv.innerHTML = "&euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
-  cryptoText.append(eurDiv);
+  eurDiv.innerHTML = "Price: &euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
+  eurContainer.append(eurDiv);
+  var eurmktCapDiv = document.createElement("p");
+  eurmktCapDiv.innerHTML =
+    "MarketCap: &euro;" + cryptoCurrenciesData.EUR * cryptoMktCapUsd;
+  eurContainer.append(eurmktCapDiv);
+
+  var yenContainer = document.createElement("div");
+  cryptoText.append(yenContainer);
+  var yenTitle = document.createElement("h3");
+  yenTitle.textContent = "Yen";
+  yenContainer.append(yenTitle);
   var yenDiv = document.createElement("p");
-  yenDiv.innerHTML = "&yen" + cryptoCurrenciesData.JPY * cryptoUsd;
-  cryptoText.append(yenDiv);
+  yenDiv.innerHTML = "Price: &yen" + cryptoCurrenciesData.JPY * cryptoUsd;
+  yenContainer.append(yenDiv);
+  var yenmktCapDiv = document.createElement("p");
+  yenmktCapDiv.innerHTML =
+    "MarketCap: &yen" + cryptoCurrenciesData.JPY * cryptoMktCapUsd;
+  yenContainer.append(yenmktCapDiv);
+
+  var gbpContainer = document.createElement("div");
+  cryptoText.append(gbpContainer);
+  var gbpTitle = document.createElement("h3");
+  gbpTitle.textContent = "Pound";
+  gbpContainer.append(gbpTitle);
   var gbpDiv = document.createElement("p");
-  gbpDiv.innerHTML = "&pound;" + cryptoCurrenciesData.GBP * cryptoUsd;
-  cryptoText.append(gbpDiv);
+  gbpDiv.innerHTML = "Price: &pound" + cryptoCurrenciesData.GBP * cryptoUsd;
+  gbpContainer.append(gbpDiv);
+  var gbpmktCapDiv = document.createElement("p");
+  gbpmktCapDiv.innerHTML =
+    "MarketCap: &pound" + cryptoCurrenciesData.GBP * cryptoMktCapUsd;
+  gbpContainer.append(gbpmktCapDiv);
+
+  var inrContainer = document.createElement("div");
+  cryptoText.append(inrContainer);
+  var inrTitle = document.createElement("h3");
+  inrTitle.textContent = "Rupee";
+  inrContainer.append(inrTitle);
+  var inrDiv = document.createElement("p");
+  inrDiv.innerHTML = "Price: &#8377;" + cryptoCurrenciesData.INR * cryptoUsd;
+  inrContainer.append(inrDiv);
+  var inrmktCapDiv = document.createElement("p");
+  inrmktCapDiv.innerHTML =
+    "MarketCap: &#8377;" + cryptoCurrenciesData.INR * cryptoMktCapUsd;
+  inrContainer.append(inrmktCapDiv);
+
   saveSearch(crypto);
 }
 function saveSearch(searchTerm) {
@@ -157,10 +213,12 @@ function processData(response) {
 //Defines a function that searches for a cryptocurrency based on the input in the search field.
 function searchCurrencies() {
   var searchValue = searchField.value.trim();
-    if (searchValue === "") {
+
+  if (searchValue === "") {
       console.error("Search field is empty");
       return;
     }
+
   var index = cryptoData.findIndex(function (item) {
     return item.id === searchField.value;
   });
