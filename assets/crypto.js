@@ -7,24 +7,17 @@ var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
 var cryptoData; //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API. Is this even needed?
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 var currentCryptoContainer = document.querySelector(".currentCrypto-container");
-
-
-//DYNAMIC HTML ELEMENTS
-//Insert status code and append main element
 var warningPopUp =
   " <div class='notification is-danger'><button class='delete'></button>Error: (Insert Status Code)</div>";
 //Insert conversion api data and append the conversion-text container
 var conversionTile =
   "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>";
 
-//Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
-
 function displayCrypto(response, crypto) {
   var cryptoCurrenciesData = response.rates;
   var cryptoValues = crypto.split(", ");
   var cryptoId = cryptoValues[0];
   var cryptoSymbol = cryptoValues[1];
-  //this line of code is searching for the index of an element in the cryptoData array where the id property matches the value of cryptoId. The result is stored in the variable index.
   var index = cryptoData.findIndex(function (item) {
     return item.id === cryptoId;
   });
@@ -101,6 +94,7 @@ function displayCrypto(response, crypto) {
 
   saveSearch(crypto);
 }
+
 function saveSearch(searchTerm) {
   previousSearches.push(searchTerm);
   localStorage.setItem("cryptoSearches", JSON.stringify(previousSearches));
@@ -117,8 +111,6 @@ function displayPreviousSearches() {
   });
   previousSearchesContainer.appendChild(ul);
 }
-
-//Defines a function loadCryptoUrl responsible for fetching cryptocurrency data from the CoinCap API.
 
 function loadCryptoUrl() {
   fetch(cryptoUrl, {
@@ -138,13 +130,10 @@ function loadCryptoUrl() {
     .catch(function (errorResponse) {
       if (errorResponse.text) {
         errorResponse.text().then(function (errorMessage) {
-          // Handle error message if needed
         });
       }
     });
 }
-
-//Defines a function loadFiatCurrencies responsible for fetching fiat currency data from the ExchangeRate-API and calling the displayCrypto function.
 
 function loadFiatCurrencies() {
   var crypto = selectField.value;
@@ -165,7 +154,6 @@ function loadFiatCurrencies() {
     .catch(function (errorResponse) {
       if (errorResponse.text) {
         errorResponse.text().then(function (errorMessage) {
-          // Handle error message if needed
         });
       }
     });
@@ -185,7 +173,7 @@ function processData(response) {
   }
   loadFiatCurrencies();
 }
-//Defines a function that searches for a cryptocurrency based on the input in the search field.
+
 function searchCurrencies() {
   var searchValue = searchField.value.trim();
 
@@ -210,9 +198,8 @@ function searchCurrencies() {
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
   loadFiatCurrencies();
 }
-//Listens for a change in the selected value of the dropdown menu and triggers the loadFiatCurrencies function.
+
 selectField.addEventListener("change", loadFiatCurrencies);
-//Listens for a click on the search button and triggers the searchCurrencies function.
 searchBtn.addEventListener("click", searchCurrencies);
 searchField.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
