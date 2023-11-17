@@ -65,65 +65,10 @@ function displayCrypto(response, crypto) {
     var fiatSign = conversionSigns[i];
     var fiatName = conversionNames[i];
 
-    var conversionTile = "<div class='tile'> <h3 class='fiat'>"+fiatName+"</h3> <p class='fiat'>Price: "+fiatSign+conversionPrice+"</p> <p class='fiat'>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
+    var conversionTile = "<div class='tile is-flex-direction-column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
     
     $(cryptoText).append(conversionTile);
     }
-    //Old Conversion Display Code
-    /*
-  var eurContainer = document.createElement("div");
-  cryptoText.append(eurContainer);
-  var eurTitle = document.createElement("h3");
-  eurTitle.textContent = "Euro";
-  eurContainer.append(eurTitle);
-  var eurDiv = document.createElement("p");
-  eurDiv.innerHTML = "Price: &euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
-  eurContainer.append(eurDiv);
-  var eurmktCapDiv = document.createElement("p");
-  eurmktCapDiv.className = "has-text-info"
-  eurmktCapDiv.innerHTML =
-    "MarketCap: &euro;" + cryptoCurrenciesData.EUR * cryptoMktCapUsd;
-  eurContainer.append(eurmktCapDiv);
-
-  var yenContainer = document.createElement("div");
-  cryptoText.append(yenContainer);
-  var yenTitle = document.createElement("h3");
-  yenTitle.textContent = "Yen";
-  yenContainer.append(yenTitle);
-  var yenDiv = document.createElement("p");
-  yenDiv.innerHTML = "Price: &yen" + cryptoCurrenciesData.JPY * cryptoUsd;
-  yenContainer.append(yenDiv);
-  var yenmktCapDiv = document.createElement("p");
-  yenmktCapDiv.innerHTML =
-    "MarketCap: &yen" + cryptoCurrenciesData.JPY * cryptoMktCapUsd;
-  yenContainer.append(yenmktCapDiv);
-
-  var gbpContainer = document.createElement("div");
-  cryptoText.append(gbpContainer);
-  var gbpTitle = document.createElement("h3");
-  gbpTitle.textContent = "Pound";
-  gbpContainer.append(gbpTitle);
-  var gbpDiv = document.createElement("p");
-  gbpDiv.innerHTML = "Price: &pound" + cryptoCurrenciesData.GBP * cryptoUsd;
-  gbpContainer.append(gbpDiv);
-  var gbpmktCapDiv = document.createElement("p");
-  gbpmktCapDiv.innerHTML =
-    "MarketCap: &pound" + cryptoCurrenciesData.GBP * cryptoMktCapUsd;
-  gbpContainer.append(gbpmktCapDiv);
-
-  var inrContainer = document.createElement("div");
-  cryptoText.append(inrContainer);
-  var inrTitle = document.createElement("h3");
-  inrTitle.textContent = "Rupee";
-  inrContainer.append(inrTitle);
-  var inrDiv = document.createElement("p");
-  inrDiv.innerHTML = "Price: &#8377;" + cryptoCurrenciesData.INR * cryptoUsd;
-  inrContainer.append(inrDiv);
-  var inrmktCapDiv = document.createElement("p");
-  inrmktCapDiv.innerHTML =
-    "MarketCap: &#8377;" + cryptoCurrenciesData.INR * cryptoMktCapUsd;
-  inrContainer.append(inrmktCapDiv);
-  */
 
   saveSearch(crypto);
 }
