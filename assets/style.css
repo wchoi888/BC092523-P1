@@ -39,6 +39,9 @@ input[type="text"] {
 .tile {
   background-color: #555;
   color: white;
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 25px;
 }
 
 /* #search {

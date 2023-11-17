@@ -3,7 +3,7 @@ var searchBtn = document.getElementById("search-btn");
 var cryptoText = document.getElementById("tile-container");
 var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
-var USDCryptoContainer = document.getElementsByClassName("currentCrypto-container")[0];
+var currentCryptoContainer = document.querySelector(".currentCrypto-container");
 
 //API urls
 var cryptoUrl = "https://api.coincap.io/v2/assets";
@@ -13,8 +13,6 @@ var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
 var cryptoData; 
 
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
-var currentCryptoContainer = document.querySelector(".currentCrypto-container");
-
 
 //DYNAMIC HTML ELEMENTS
 //Insert status code and append main element
@@ -52,6 +50,24 @@ function displayCrypto(response, crypto) {
   currentCryptoContainer.innerHTML = currentCryptoEl;
 
   //Conversion Display
+  var conversions = ["EUR","JPY","GBP","INR"];
+  var conversionNames = ["Euro","Yen","Pound","Rupee"];
+  var conversionSigns = ["&euro;","&yen","&pound","&#8377;"];
+  
+
+  for(var i = 0; i < conversions.length; i++) {
+    var fiatSymbol = conversions[i];
+    var conversionPrice = cryptoCurrenciesData[fiatSymbol] * cryptoUsd;
+    var conversionMarketCap = cryptoCurrenciesData[fiatSymbol] * cryptoMktCapUsd;
+    var fiatSign = conversionSigns[i];
+    var fiatName = conversionNames[i];
+
+    var conversionTile = "<div class='tile'> <h3 class='fiat'>"+fiatName+"</h3> <p class='fiat'>Price: "+fiatSign+conversionPrice+"</p> <p class='fiat'>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
+    
+    $(cryptoText).append(conversionTile);
+    }
+    //Old Conversion Display Code
+    /*
   var eurContainer = document.createElement("div");
   cryptoText.append(eurContainer);
   var eurTitle = document.createElement("h3");
@@ -103,6 +119,7 @@ function displayCrypto(response, crypto) {
   inrmktCapDiv.innerHTML =
     "MarketCap: &#8377;" + cryptoCurrenciesData.INR * cryptoMktCapUsd;
   inrContainer.append(inrmktCapDiv);
+  */
 
   saveSearch(crypto);
 }
