@@ -56,6 +56,7 @@ function displayCrypto(response, crypto) {
   eurDiv.innerHTML = "Price: &euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
   eurContainer.append(eurDiv);
   var eurmktCapDiv = document.createElement("p");
+  eurmktCapDiv.className = "has-text-info"
   eurmktCapDiv.innerHTML =
     "MarketCap: &euro;" + cryptoCurrenciesData.EUR * cryptoMktCapUsd;
   eurContainer.append(eurmktCapDiv);
@@ -197,7 +198,7 @@ function searchCurrencies() {
 //Defines a function for processing the fetched cryptocurrency data and populating the dropdown menu with options.
 
 function processData(response) {
-  selectField.innerHTML = "";
+  // selectField.innerHTML = "";
   cryptoData = response.data;
 
   for (var i = 0; i < cryptoData.length; i++) {
@@ -244,3 +245,7 @@ searchField.addEventListener("keydown", (event) => {
     searchCurrencies();
   }
 });
+
+
+
+

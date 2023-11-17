@@ -24,20 +24,23 @@
                 <div id="search" class="field">
                     <h2 class="subtitle">Search for a <strong>Cryptocurrency</strong></h2>
                     <div class="control">
-                <aside class="menu">
+                <!-- <aside class="menu">
                     <p class="menu-label">
                         Choose Search Option
                     </p>
                     <ul class="menu-list">
-                        <li><a>Toggle</a></li>
-                        <li><a>Search</a></li>
+                        <li id = "dropdown"><a>Dropdown List of Cryptos</a></li>
+                        <li id="searchName"><a>Search Crypto by Name</a></li>
                     </ul>
-                </aside>        
-                        <select id="crypto" class="select"></select>
+                </aside>         -->
+                        <select id="crypto" class="select">
+                            <option selected="true" disabled="disabled">Choose Crypto</option> 
+                        </select>
+
                     </div>
                     <div class="field has-addons">
                         <div class="control is-expanded mt-5">
-                            <input type="text" id="searchCrypto" class="input">
+                            <input type="text" id="searchCrypto" class="input" placeholder="Enter Crypto">
                         </div>
                     </div>
                     <div class="field">
