@@ -35,25 +35,31 @@ function displayCrypto(response, crypto) {
   cryptoText.textContent = "";
   currentCryptoContainer.textContent = "";
   var currenciesDiv = document.createElement("h3");
+  currenciesDiv.className = "is-size-6"
   currenciesDiv.textContent =
     cryptoId + " " + "(" + cryptoSymbol + ")" + " " + "#" + cryptoRank;
   currentCryptoContainer.append(currenciesDiv);
   var usdDiv = document.createElement("p");
   usdDiv.innerHTML = "$" + cryptoUsd;
+  usdDiv.className = "is-size-6"
   currentCryptoContainer.append(usdDiv);
   var supplyDiv = document.createElement("p");
   supplyDiv.innerHTML = "supply: " + cryptoSupply;
+  supplyDiv.className = "is-size-6"
   currentCryptoContainer.append(supplyDiv);
   var marketCapDiv = document.createElement("p");
+  marketCapDiv.className = "is-size-6"
   marketCapDiv.innerHTML = "marketcap: " + cryptoMktCapUsd;
   currentCryptoContainer.append(marketCapDiv);
   var eurContainer = document.createElement("div");
   cryptoText.append(eurContainer);
   var eurTitle = document.createElement("h3");
   eurTitle.textContent = "Euro";
+  eurTitle.className = "has-text-success"
   eurContainer.append(eurTitle);
   var eurDiv = document.createElement("p");
   eurDiv.innerHTML = "Price: &euro;" + cryptoCurrenciesData.EUR * cryptoUsd;
+  eurDiv.className = "has-text-link"	
   eurContainer.append(eurDiv);
   var eurmktCapDiv = document.createElement("p");
   eurmktCapDiv.className = "has-text-info"
@@ -65,11 +71,15 @@ function displayCrypto(response, crypto) {
   cryptoText.append(yenContainer);
   var yenTitle = document.createElement("h3");
   yenTitle.textContent = "Yen";
+  yenTitle.className = "has-text-success"
   yenContainer.append(yenTitle);
   var yenDiv = document.createElement("p");
+
   yenDiv.innerHTML = "Price: &yen" + cryptoCurrenciesData.JPY * cryptoUsd;
+  yenDiv.className = "has-text-link"	
   yenContainer.append(yenDiv);
   var yenmktCapDiv = document.createElement("p");
+  yenmktCapDiv.className = "has-text-info"
   yenmktCapDiv.innerHTML =
     "MarketCap: &yen" + cryptoCurrenciesData.JPY * cryptoMktCapUsd;
   yenContainer.append(yenmktCapDiv);
@@ -78,11 +88,14 @@ function displayCrypto(response, crypto) {
   cryptoText.append(gbpContainer);
   var gbpTitle = document.createElement("h3");
   gbpTitle.textContent = "Pound";
+  gbpTitle.className = "has-text-success"
   gbpContainer.append(gbpTitle);
   var gbpDiv = document.createElement("p");
   gbpDiv.innerHTML = "Price: &pound" + cryptoCurrenciesData.GBP * cryptoUsd;
+  gbpDiv.className = "has-text-link"
   gbpContainer.append(gbpDiv);
   var gbpmktCapDiv = document.createElement("p");
+  gbpmktCapDiv.className = "has-text-info"
   gbpmktCapDiv.innerHTML =
     "MarketCap: &pound" + cryptoCurrenciesData.GBP * cryptoMktCapUsd;
   gbpContainer.append(gbpmktCapDiv);
@@ -91,11 +104,14 @@ function displayCrypto(response, crypto) {
   cryptoText.append(inrContainer);
   var inrTitle = document.createElement("h3");
   inrTitle.textContent = "Rupee";
+  inrTitle.className = "has-text-success"
   inrContainer.append(inrTitle);
   var inrDiv = document.createElement("p");
   inrDiv.innerHTML = "Price: &#8377;" + cryptoCurrenciesData.INR * cryptoUsd;
+  inrDiv.className = "has-text-link"	
   inrContainer.append(inrDiv);
   var inrmktCapDiv = document.createElement("p");
+  inrmktCapDiv.className = "has-text-info"
   inrmktCapDiv.innerHTML =
     "MarketCap: &#8377;" + cryptoCurrenciesData.INR * cryptoMktCapUsd;
   inrContainer.append(inrmktCapDiv);
