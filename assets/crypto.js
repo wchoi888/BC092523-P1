@@ -62,7 +62,7 @@ function displayCrypto(response, crypto) {
     var fiatSign = conversionSigns[i];
     var fiatName = conversionNames[i];
 
-    var conversionTile = "<div class='tile is-flex-direction-column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
+    var conversionTile = "<div class='fiatCard column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
     
     $(cryptoText).append(conversionTile);
     }
@@ -152,18 +152,20 @@ function processData(response) {
 function searchCurrencies() {
   var searchValue = searchField.value.trim();
 
+  
+
   if (searchValue === "") {
       displayWarning("Search field is empty");
       return;
     }
 
   var index = cryptoData.findIndex(function (item) {
-    return item.id === searchField.value;
+    return item.id === searchField.value.toLowerCase();
   });
 
   if (index < 0) {
     index = cryptoData.findIndex(function (item) {
-      return item.symbol === searchField.value;
+      return item.symbol === searchField.value.toUpperCase();
     });
   }
   if (index < 0) {
@@ -188,7 +190,7 @@ function displayWarning(message) {
   var warningPopUp =
   " <div class='notification is-danger'><button class='delete'></button>"+message+"</div>";
 
-  $('main').append(warningPopUp);
+  $('body').append(warningPopUp);
 
   $('.delete').click(function () {
     $('.notification').remove();
