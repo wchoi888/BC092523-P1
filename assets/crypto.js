@@ -17,7 +17,6 @@ var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
 //DYNAMIC HTML ELEMENTS
 //Insert status code and append main element
-
 var warningPopUp =
   " <div class='notification is-danger'><button class='delete'></button>Error: (Insert Status Code)</div>";
 //Insert conversion api data and append the conversion-text container
@@ -27,8 +26,6 @@ var conversionTile =
 
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
-
-
 function displayCrypto(response, crypto) {
   var cryptoCurrenciesData = response.rates;
   var cryptoValues = crypto.split(", ");
@@ -156,7 +153,7 @@ function searchCurrencies() {
   var searchValue = searchField.value.trim();
 
   if (searchValue === "") {
-      console.error("Search field is empty");
+      displayWarning("Search field is empty");
       return;
     }
 
@@ -170,7 +167,7 @@ function searchCurrencies() {
     });
   }
   if (index < 0) {
-    console.error("Cryptocurrency not found:", searchValue);
+    displayWarning("Cryptocurrency not found: " + searchValue);
     return;
   }
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
@@ -185,6 +182,19 @@ searchField.addEventListener("keydown", (event) => {
   }
 });
 
+//displays error message
+function displayWarning(message) {
 
+  var warningPopUp =
+  " <div class='notification is-danger'><button class='delete'></button>"+message+"</div>";
+
+  $('main').append(warningPopUp);
+
+  $('.delete').click(function () {
+    $('.notification').remove();
+  })
+  
+
+}
 
 
