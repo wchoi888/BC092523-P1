@@ -38,16 +38,22 @@ function displayCrypto(response, crypto) {
   
   //Main display
   var cryptoName = cryptoData[index].name;
-  var cryptoUsd = cryptoData[index].priceUsd;
-  var cryptoSupply = cryptoData[index].supply;
-  var cryptoMktCapUsd = cryptoData[index].marketCapUsd;
+  var cryptoUsd = parseFloat(cryptoData[index].priceUsd).toLocaleString(undefined, {
+    minimumFractionDigits: 2,maximumFractionDigits: 2,
+  });
+  var cryptoSupply = Math.round(cryptoData[index].supply);
+  var cryptoMktCapUsd = parseFloat(cryptoData[index].marketCapUsd).toLocaleString(undefined, {
+    minimumFractionDigits: 2,maximumFractionDigits: 2,
+  });
   var cryptoRank = cryptoData[index].rank;
 
   cryptoText.textContent = "";
   currentCryptoContainer.textContent = "";
 
-  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p>";
+  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply.toLocaleString()+"</p><p>Market Cap: $"+cryptoMktCapUsd.toLocaleString()+"</p>";
+  var marketCapBar = '<progress class="progress is-primary" value="'+cryptoMktCapUsd+'" max="1300000000000"></progress>';
   currentCryptoContainer.innerHTML = currentCryptoEl;
+
 
   //Conversion Display
   var conversions = ["EUR","JPY","GBP","INR"];
@@ -57,8 +63,13 @@ function displayCrypto(response, crypto) {
 
   for(var i = 0; i < conversions.length; i++) {
     var fiatSymbol = conversions[i];
-    var conversionPrice = cryptoCurrenciesData[fiatSymbol] * cryptoUsd;
-    var conversionMarketCap = cryptoCurrenciesData[fiatSymbol] * cryptoMktCapUsd;
+    var conversionPrice = parseFloat(cryptoCurrenciesData[fiatSymbol] * cryptoData[index].priceUsd).toLocaleString(undefined, {
+      minimumFractionDigits: 2,maximumFractionDigits: 2,
+    });
+    var conversionMarketCap = parseFloat(cryptoCurrenciesData[fiatSymbol] * cryptoData[index].marketCapUsd).toLocaleString(undefined, {
+      minimumFractionDigits: 2,maximumFractionDigits: 2,
+    });
+    
     var fiatSign = conversionSigns[i];
     var fiatName = conversionNames[i];
 
@@ -198,5 +209,4 @@ function displayWarning(message) {
   
 
 }
-
 

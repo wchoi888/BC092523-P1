@@ -3,7 +3,7 @@
 }
 
 .center-column {
-  margin-right: 250px;
+  margin-right: 800px;
 }
 .conversion-container {
   margin-top: 25px;
@@ -21,7 +21,7 @@
   padding-right: 25px;
   box-shadow: 10px 10px #00d1b2;
 }
- }
+ 
 
  #searchCrypto {
   width: 210px !important;
