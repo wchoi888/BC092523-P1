@@ -15,20 +15,8 @@ var cryptoData;
 
 var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
-//DYNAMIC HTML ELEMENTS
-//Insert status code and append main element
-
-var warningPopUp =
-  " <div class='notification is-danger'><button class='delete'></button>Error: (Insert Status Code)</div>";
-//Insert conversion api data and append the conversion-text container
-var conversionTile =
-  "<div class='tile'><h3>(Insert Global Curerncy Name)</h3><p>Price: (Insert Converted Price)</p><p>Market Cap: (Insert Converted Market Cap)</p></div>";
-
-
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
-
-
 function displayCrypto(response, crypto) {
   var cryptoCurrenciesData = response.rates;
   var cryptoValues = crypto.split(", ");
@@ -41,16 +29,28 @@ function displayCrypto(response, crypto) {
   
   //Main display
   var cryptoName = cryptoData[index].name;
-  var cryptoUsd = cryptoData[index].priceUsd;
-  var cryptoSupply = cryptoData[index].supply;
-  var cryptoMktCapUsd = cryptoData[index].marketCapUsd;
+  var cryptoUsd = parseFloat(cryptoData[index].priceUsd).toLocaleString(undefined, {
+    minimumFractionDigits: 2,maximumFractionDigits: 2,
+  });
+  var cryptoSupply = Math.round(cryptoData[index].supply);
+  var cryptoMktCapUsd = parseFloat(cryptoData[index].marketCapUsd).toLocaleString(undefined, {
+    minimumFractionDigits: 2,maximumFractionDigits: 2,
+  });
   var cryptoRank = cryptoData[index].rank;
+  var cryptoMax = cryptoData[index].maxSupply;
 
   cryptoText.textContent = "";
   currentCryptoContainer.textContent = "";
 
-  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p>";
+  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply.toLocaleString()+"</p><p>Market Cap: $"+cryptoMktCapUsd.toLocaleString()+"</p>";
+  var supplyBar = '<progress class="progress is-primary" value="'+cryptoSupply+'" max="'+cryptoData[index].maxSupply+'"></progress>';
   currentCryptoContainer.innerHTML = currentCryptoEl;
+
+  if (cryptoMax == null || cryptoSupply == cryptoMax) {
+   
+  } else {
+  $(currentCryptoContainer).append(supplyBar);
+  }
 
   //Conversion Display
   var conversions = ["EUR","JPY","GBP","INR"];
@@ -60,17 +60,22 @@ function displayCrypto(response, crypto) {
 
   for(var i = 0; i < conversions.length; i++) {
     var fiatSymbol = conversions[i];
-    var conversionPrice = cryptoCurrenciesData[fiatSymbol] * cryptoUsd;
-    var conversionMarketCap = cryptoCurrenciesData[fiatSymbol] * cryptoMktCapUsd;
+    var conversionPrice = parseFloat(cryptoCurrenciesData[fiatSymbol] * cryptoData[index].priceUsd).toLocaleString(undefined, {
+      minimumFractionDigits: 2,maximumFractionDigits: 2,
+    });
+    var conversionMarketCap = parseFloat(cryptoCurrenciesData[fiatSymbol] * cryptoData[index].marketCapUsd).toLocaleString(undefined, {
+      minimumFractionDigits: 2,maximumFractionDigits: 2,
+    });
+    
     var fiatSign = conversionSigns[i];
     var fiatName = conversionNames[i];
 
-    var conversionTile = "<div class='tile is-flex-direction-column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
+    var conversionTile = "<div class='fiatCard column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
     
     $(cryptoText).append(conversionTile);
     }
 
-  saveSearch(crypto);
+  addToLocal(crypto);
 }
 
 function saveSearch(searchTerm) {
@@ -156,21 +161,21 @@ function searchCurrencies() {
   var searchValue = searchField.value.trim();
 
   if (searchValue === "") {
-      console.error("Search field is empty");
+      displayWarning("Search field is empty");
       return;
     }
 
   var index = cryptoData.findIndex(function (item) {
-    return item.id === searchField.value;
+    return item.id === searchField.value.toLowerCase();
   });
 
   if (index < 0) {
     index = cryptoData.findIndex(function (item) {
-      return item.symbol === searchField.value;
+      return item.symbol === searchField.value.toUpperCase();
     });
   }
   if (index < 0) {
-    console.error("Cryptocurrency not found:", searchValue);
+    displayWarning("Cryptocurrency not found: " + searchValue);
     return;
   }
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
@@ -185,6 +190,61 @@ searchField.addEventListener("keydown", (event) => {
   }
 });
 
+//displays error message
+function displayWarning(message) {
 
+  var warningPopUp =
+  " <div class='notification is-danger'><button class='delete'></button>"+message+"</div>";
 
+  $('body').append(warningPopUp);
+
+  $('.delete').click(function () {
+    $('.notification').remove();
+  })
+  
+
+}
+
+//fetchs local storage buttons when page loads
+$( document ).ready(function() {
+  var local = Object.keys(localStorage);
+   for (var i = 0; i < local.length; i++) {
+    var key = localStorage.getItem(local[i]);
+    //ADD IF STATEMENT?
+      $('.storedCrypto-container').append(key);
+    
+   }
+}); 
+
+//adds the searched crypto to local storage to access it again
+var addToLocal = function (storedCrypto) {
+  if (matchCrypto(storedCrypto)) {
+  } else {
+    localStorage.setItem(storedCrypto, '<button class="button is-primary is-light is-large">'+storedCrypto+'</button>');
+    $('.storedCrypto-container').append('<button class="button is-primary is-light is-large">'+storedCrypto+'</button>');
+  }
+}
+
+//checks if the searched crypto matches any existing cryptos in local storage before posting
+var matchCrypto = function(storedCrypto) {
+  var divArray = $('.storedCrypto');
+  var cryptoFound = false;
+
+  divArray.each(function() {
+    var divText = $(this).text(); 
+    if (divText.toLowerCase() === storedCrypto.toLowerCase()) {
+      cryptoFound = true;
+      return false 
+    } 
+});
+
+  return cryptoFound;
+}
+
+  //Local Sorage button click event
+  $('.storedCrypto-container').on('click','button',function () {
+    var crypto = $(this).text();
+    console.log("clicked")
+    displayCrypto(crypto);
+  })
 

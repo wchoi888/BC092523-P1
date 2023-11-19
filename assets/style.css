@@ -1,81 +1,27 @@
-/* 
-
-
-
-  @media screen and (max-width: 768px) {
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f4f4f4;
-      padding: 20px;
-      margin: 0;
-    }
-    
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
-    
-    main {
-      max-width: 800px;
-      margin: 20px auto;
-    }
-    
-    #search-btn {
-      background: #555;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-    
-    #search-btn:hover {
-      background: #444;
-    }
-    
-    input[type="text"] {
-      padding: 10px;
-      margin: 10px 0;
-    }
-    
-    .tile {
-      background-color: #555;
-      color: white;
-    }
-    
-
-    #container {
-      display: column;
-      margin:0 auto;
-    }
-    #search {
-      width: 20%;
-      display: flex;
-      flex-direction: column;
-      row-gap: 10px;
-      
-    }
-
-
-.tile {
-  background-color: #555;
-  color: white;
-  margin: 10px;
-  padding-left: 10px;
-  padding-right: 25px;
-
+.left-column {
+ margin-left: 10px;
 }
- */
- .tile {
+
+.center-column {
+  margin-right: 800px;
+}
+.conversion-container {
+  margin-top: 25px;
+}
+
+.currentCrypto-container {
+  margin-top: 5px;
+}
+
+ .fiatCard {
   background-color: #555;
   color: white;
   margin: 10px;
   padding-left: 10px;
   padding-right: 25px;
- }
+  box-shadow: 10px 10px #00d1b2;
+}
+ 
 
  #searchCrypto {
   width: 210px !important;

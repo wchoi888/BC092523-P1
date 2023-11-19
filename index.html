@@ -16,47 +16,39 @@
             <h1 class="title">Cryptocurrency Tracker</h1>
         </div>
     </header>
-
-    <main>
-        <section class="section">
-            <div class="container">
+    <main class="columns">
+      <div class="left-column column">
+            <div id="search" class="field ">
+            <h2 class="subtitle">Search for a <strong>Cryptocurrency</strong></h2>
+               <div class="control">
                 
-                <div id="search" class="field">
-                    <h2 class="subtitle">Search for a <strong>Cryptocurrency</strong></h2>
-                    <div class="control">
-                <!-- <aside class="menu">
-                    <p class="menu-label">
-                        Choose Search Option
-                    </p>
-                    <ul class="menu-list">
-                        <li id = "dropdown"><a>Dropdown List of Cryptos</a></li>
-                        <li id="searchName"><a>Search Crypto by Name</a></li>
-                    </ul>
-                </aside>         -->
-                        <select id="crypto" class="select">
-                            <option selected="true" disabled="disabled">Choose Crypto</option> 
-                        </select>
+            <select id="crypto" class="select">
+               <option selected="true" disabled="disabled">Choose Crypto</option> 
+            </select>
 
-                    </div>
-                    <div class="field has-addons">
-                        <div class="control is-expanded mt-5">
-                            <input type="text" id="searchCrypto" class="input" placeholder="Enter Crypto">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="control">
-                            <button class="button is-info" id="search-btn">Search</button>
-                        </div>
-                    </div>
                 </div>
+            <div class="field has-addons">
+               <div class="control is-expanded mt-5">
+                  <input type="text" id="searchCrypto" class="input" placeholder="Enter Crypto">
+               </div>
             </div>
-            <div id="center-column">
+               <div class="field">
+                  <div class="control">
+                     <button class="button is-info" id="search-btn">Search</button>
+                  </div>
+               </div>
+               </div>
+               <div class = "storedCrypto-container">
+
+               </div>
+      </div>
+      <div class="center-column column">
                <div class="currentCrypto-container">
                      
                </div>
                <div class="conversion-container">
                   <h2>Cryptocurrency conversion against 4 major fiat currencies</h2>
-                  <div id="tile-container">
+                  <div id="tile-container" class="columns">
       
       
                   </div>
