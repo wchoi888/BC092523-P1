@@ -122,8 +122,7 @@ function loadCryptoUrl() {
     });
 }
 
-function loadFiatCurrencies() {
-  var crypto = selectField.value;
+function loadFiatCurrencies(crypto) {
   fetch(currenciesUrl, {
     method: "GET",
     headers: {},
@@ -147,9 +146,7 @@ function loadFiatCurrencies() {
 }
 
 function processData(response) {
-  // selectField.innerHTML = "";
   cryptoData = response.data;
-  console.log(cryptoData);
   for (var i = 0; i < cryptoData.length; i++) {
     var optionValue = cryptoData[i].id + ", " + cryptoData[i].symbol;
 
@@ -158,7 +155,7 @@ function processData(response) {
 
     selectField.append(cryptoOptions);
   }
-  loadFiatCurrencies();
+ 
 }
 
 function searchCurrencies() {
@@ -183,10 +180,14 @@ function searchCurrencies() {
     return;
   }
   selectField.value = cryptoData[index].id + ", " + cryptoData[index].symbol;
-  loadFiatCurrencies();
+  var crypto = selectField.value;
+  loadFiatCurrencies(crypto);
 }
 
-selectField.addEventListener("change", loadFiatCurrencies);
+selectField.addEventListener("change", function () {
+  var selectedCrypto = selectField.value;
+  loadFiatCurrencies(selectedCrypto)
+});
 searchBtn.addEventListener("click", searchCurrencies);
 searchField.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
@@ -248,6 +249,6 @@ var matchCrypto = function(storedCrypto) {
   //Local Storage button click event
   $('.storedCrypto-container').on('click','button',function () {
     var crypto = $(this).text();
-    console.log("clicked")
+    loadFiatCurrencies(crypto);
   })
 
