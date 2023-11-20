@@ -42,3 +42,14 @@
   overflow: auto;
 }
  
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 1000;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+}

@@ -68,7 +68,6 @@ function displayCrypto(response, crypto) {
   });
   }
 
-  
 
   //Conversion Display
  
@@ -232,7 +231,7 @@ var addToLocal = function (storedCrypto) {
 
 //checks if the searched crypto matches any existing cryptos in local storage before posting
 var matchCrypto = function(storedCrypto) {
-  var divArray = $('.storedCrypto');
+  var divArray = $('.button');
   var cryptoFound = false;
 
   divArray.each(function() {
