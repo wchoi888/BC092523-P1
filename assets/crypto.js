@@ -5,6 +5,7 @@ var selectField = document.getElementById("crypto");
 var searchField = document.getElementById("searchCrypto");
 var currentCryptoContainer = document.querySelector(".currentCrypto-container");
 
+
 //API urls
 var cryptoUrl = "https://api.coincap.io/v2/assets";
 var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
@@ -12,8 +13,6 @@ var currenciesUrl = "https://open.er-api.com/v6/latest/USD";
 
 //Declares a variable cryptoData to store cryptocurrency data fetched from the CoinCap API.
 var cryptoData; 
-
-var previousSearches = JSON.parse(localStorage.getItem("cryptoSearches")) || [];
 
 
 //Defines a function displayCrypto that takes an fiat currencies API response and a selected cryptocurrency as parameters. This function is responsible for converting and displaying details of the selected cryptocurrency.
@@ -37,22 +36,45 @@ function displayCrypto(response, crypto) {
     minimumFractionDigits: 2,maximumFractionDigits: 2,
   });
   var cryptoRank = cryptoData[index].rank;
-  var cryptoMax = cryptoData[index].maxSupply;
+  var cryptoMax = Math.round(cryptoData[index].maxSupply);
 
   cryptoText.textContent = "";
   currentCryptoContainer.textContent = "";
+  $('.conversion-title').remove();
 
-  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Supply: "+cryptoSupply.toLocaleString()+"</p><p>Market Cap: $"+cryptoMktCapUsd.toLocaleString()+"</p>";
-  var supplyBar = '<progress class="progress is-primary" value="'+cryptoSupply+'" max="'+cryptoData[index].maxSupply+'"></progress>';
+  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p><p id='supplyP'>Supply: "+cryptoSupply.toLocaleString()+"</p>";
+  var supplyBar = '<div class ="progress-container"><p style="font-weight:bolder;">Supply Bar</p><progress class="progress is-primary" value="'+cryptoSupply+'" max="'+cryptoMax+'"></progress></div>';
   currentCryptoContainer.innerHTML = currentCryptoEl;
-
-  if (cryptoMax == null || cryptoSupply == cryptoMax) {
+  
+  if (cryptoMax == 0 || cryptoSupply == cryptoMax || cryptoMax == null) {
    
   } else {
   $(currentCryptoContainer).append(supplyBar);
+  $('#supplyP').remove();
+  var progressBar = document.querySelector('.progress-container');
+
+  progressBar.addEventListener('mouseenter', function () {
+    // Show a modal when hovering over the progress bar
+    var modalHTML = '<div id="popup-container"><p>Supply: '+cryptoSupply.toLocaleString()+'</p><p>Max Supply: '+cryptoMax.toLocaleString()+'</p></div>';
+    $(".progress-container").append( modalHTML);
+  });
+
+  progressBar.addEventListener('mouseleave', function ()  {
+    // Remove the modal when mouse leaves the progress bar
+    var modal = document.querySelector('#popup-container');
+    if (modal) {
+      modal.remove();
+    }
+  });
   }
 
+  
+
   //Conversion Display
+ 
+  var convertedTitleEL ='<h2 class="conversion-title" style= "font-style:italic">Cryptocurrency Conversion against 4 Major Fiat Currencies</h2>';
+  $('.conversion-container').prepend(convertedTitleEL);
+
   var conversions = ["EUR","JPY","GBP","INR"];
   var conversionNames = ["Euro","Yen","Pound","Rupee"];
   var conversionSigns = ["&euro;","&yen","&pound","&#8377;"];
@@ -76,24 +98,7 @@ function displayCrypto(response, crypto) {
     }
 
   addToLocal(crypto);
-}
-
-function saveSearch(searchTerm) {
-  previousSearches.push(searchTerm);
-  localStorage.setItem("cryptoSearches", JSON.stringify(previousSearches));
-  displayPreviousSearches();
-}
-
-function displayPreviousSearches() {
-  previousSearchesContainer.innerHTML = "";
-  var ul = document.createElement("ul");
-  previousSearches.forEach(function (searchTerm) {
-    var li = document.createElement("li");
-    li.textContent = searchTerm;
-    ul.appendChild(li);
-  });
-  previousSearchesContainer.appendChild(ul);
-}
+  }
 
 function loadCryptoUrl() {
   fetch(cryptoUrl, {
@@ -145,7 +150,7 @@ function loadFiatCurrencies() {
 function processData(response) {
   // selectField.innerHTML = "";
   cryptoData = response.data;
-
+  console.log(cryptoData);
   for (var i = 0; i < cryptoData.length; i++) {
     var optionValue = cryptoData[i].id + ", " + cryptoData[i].symbol;
 
@@ -245,6 +250,5 @@ var matchCrypto = function(storedCrypto) {
   $('.storedCrypto-container').on('click','button',function () {
     var crypto = $(this).text();
     console.log("clicked")
-    displayCrypto(crypto);
   })
 
