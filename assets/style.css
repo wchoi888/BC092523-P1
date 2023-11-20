@@ -1,16 +1,16 @@
-.left-column {
- margin-left: 10px;
-}
-
-.center-column {
-  margin-right: 800px;
-}
-.conversion-container {
-  margin-top: 25px;
-}
 
 .currentCrypto-container {
+ margin-bottom: 30px;
+ margin-top: 10px;
+}
+
+.left-column {
+  max-width: 25%;
+  margin-top: 10px;
+}
+.progress-container {
   margin-top: 5px;
+  position: relative;
 }
 
  .fiatCard {
@@ -28,17 +28,15 @@
  }
 
  #popup-container {
-  position: fixed;
-  top: 20%;
-  left: 87%;
+  position: absolute;
+  bottom: 5%;
+  left: 80%;
   transform: translate(-50%, -50%);
   background-color: #fff;
   border: 1px solid #00d1b2;
-  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 10px;
   z-index: 1000;
-  max-width: 80%;
-  max-height: 80%;
   overflow: auto;
 }
  
@@ -52,4 +50,20 @@
   max-width: 80%;
   max-height: 80%;
   overflow: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .left-column{
+    max-width: 100%;
+  }
+
+  .fiatCard {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .left-column{
+    max-width: 100%;
+  }
 }

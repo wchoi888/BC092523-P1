@@ -42,8 +42,8 @@ function displayCrypto(response, crypto) {
   currentCryptoContainer.textContent = "";
   $('.conversion-title').remove();
 
-  var currentCryptoEl = "<h1>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p><p id='supplyP'>Supply: "+cryptoSupply.toLocaleString()+"</p>";
-  var supplyBar = '<div class ="progress-container"><p style="font-weight:bolder;">Supply Bar</p><progress class="progress is-primary" value="'+cryptoSupply+'" max="'+cryptoMax+'"></progress></div>';
+  var currentCryptoEl = "<h1 style='font-weight:bolder; font-size:22px;'>"+cryptoName+ " ("+cryptoSymbol+") #"+cryptoRank+"</h1><p>Price: $"+cryptoUsd+"</p><p>Market Cap: $"+cryptoMktCapUsd+"</p><p id='supplyP'>Supply: "+cryptoSupply.toLocaleString()+"</p>";
+  var supplyBar = '<div class ="progress-container"><p style="font-weight:bolder; ">Supply Bar</p><progress class="progress is-primary" value="'+cryptoSupply+'" max="'+cryptoMax+'"></progress></div>';
   currentCryptoContainer.innerHTML = currentCryptoEl;
   
   if (cryptoMax == 0 || cryptoSupply == cryptoMax || cryptoMax == null) {
@@ -71,7 +71,7 @@ function displayCrypto(response, crypto) {
 
   //Conversion Display
  
-  var convertedTitleEL ='<h2 class="conversion-title" style= "font-style:italic">Cryptocurrency Conversion against 4 Major Fiat Currencies</h2>';
+  var convertedTitleEL ='<h2 class="conversion-title" style= "font-style:italic; margin-bottom:8px;">Cryptocurrency Conversion against 4 Major Fiat Currencies</h2>';
   $('.conversion-container').prepend(convertedTitleEL);
 
   var conversions = ["EUR","JPY","GBP","INR"];
@@ -91,7 +91,7 @@ function displayCrypto(response, crypto) {
     var fiatSign = conversionSigns[i];
     var fiatName = conversionNames[i];
 
-    var conversionTile = "<div class='fiatCard column'> <h3>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
+    var conversionTile = "<div class='fiatCard column'> <h3 style = 'font-weight:bolder; text-align:center; font-size:50px;'>"+fiatName+" </h3> <p> Price: "+fiatSign+conversionPrice+"</p> <p>Market Cap: "+fiatSign+conversionMarketCap+"</p> </div>";
     
     $(cryptoText).append(conversionTile);
     }
@@ -224,8 +224,8 @@ $( document ).ready(function() {
 var addToLocal = function (storedCrypto) {
   if (matchCrypto(storedCrypto)) {
   } else {
-    localStorage.setItem(storedCrypto, '<button class="button is-primary is-light is-large">'+storedCrypto+'</button>');
-    $('.storedCrypto-container').append('<button class="button is-primary is-light is-large">'+storedCrypto+'</button>');
+    localStorage.setItem(storedCrypto, '<button class="button is-primary is-light is-small">'+storedCrypto+'</button>');
+    $('.storedCrypto-container').append('<button class="button is-primary is-light is-small">'+storedCrypto+'</button>');
   }
 }
 
@@ -245,7 +245,7 @@ var matchCrypto = function(storedCrypto) {
   return cryptoFound;
 }
 
-  //Local Sorage button click event
+  //Local Storage button click event
   $('.storedCrypto-container').on('click','button',function () {
     var crypto = $(this).text();
     console.log("clicked")
