@@ -197,7 +197,7 @@ searchField.addEventListener("keydown", (event) => {
 
 //displays error message
 function displayWarning(message) {
-
+  $('.notification').remove();
   var warningPopUp =
   " <div class='notification is-danger'><button class='delete'></button>"+message+"</div>";
 
@@ -215,7 +215,6 @@ $( document ).ready(function() {
   var local = Object.keys(localStorage);
    for (var i = 0; i < local.length; i++) {
     var key = localStorage.getItem(local[i]);
-    //ADD IF STATEMENT?
       $('.storedCrypto-container').append(key);
     
    }
@@ -225,8 +224,8 @@ $( document ).ready(function() {
 var addToLocal = function (storedCrypto) {
   if (matchCrypto(storedCrypto)) {
   } else {
-    localStorage.setItem(storedCrypto, '<button class="button is-primary is-light is-small">'+storedCrypto+'</button>');
-    $('.storedCrypto-container').append('<button class="button is-primary is-light is-small">'+storedCrypto+'</button>');
+    localStorage.setItem(storedCrypto, '<button class="button is-primary is-light is-small" style="margin:5px;">'+storedCrypto+'</button>');
+    $('.storedCrypto-container').append('<button class="button is-primary is-light is-small" style="margin:5px;">'+storedCrypto+'</button>');
   }
 }
 
