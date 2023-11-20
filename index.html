@@ -9,23 +9,20 @@
 </head>
 
 <body onload="loadCryptoUrl()">
-
-    <!-- Using Bulma to impose a banner -->
     <header class="hero is-primary">
         <div class="hero-body">
             <h1 class="title">Cryptocurrency Tracker</h1>
         </div>
     </header>
-    <main class="columns">
-      <div class="left-column column">
+    <main class="container">
+      <div class="columns is-multiline">
+      <div class="left-column column is-one-third-desktop is-full-mobile">
             <div id="search" class="field ">
             <h2 class="subtitle">Search for a <strong>Cryptocurrency</strong></h2>
                <div class="control">
-                
-            <select id="crypto" class="select">
-               <option selected="true" disabled="disabled">Choose Crypto</option> 
-            </select>
-
+                  <select id="crypto" class="select">
+                     <option selected="true" disabled="disabled">Choose Crypto</option> 
+                  </select>
                 </div>
             <div class="field has-addons">
                <div class="control is-expanded mt-5">
@@ -34,7 +31,8 @@
             </div>
                <div class="field">
                   <div class="control">
-                     <button class="button is-info" id="search-btn">Search</button>
+                     <button class="button is-primary" id="search-btn">Search</button>
+                     <button class="button is-danger" id="clear-btn">Clear Storage</button>
                   </div>
                </div>
                </div>
@@ -42,12 +40,12 @@
 
                </div>
       </div>
-      <div class="center-column column">
+      <div class="center-column column is-two-thirds-desktop is-full-mobile">
                <div class="currentCrypto-container">
                      
                </div>
                <div class="conversion-container">
-                  <h2>Cryptocurrency conversion against 4 major fiat currencies</h2>
+                  
                   <div id="tile-container" class="columns">
       
       
@@ -55,6 +53,7 @@
       
                </div>
             </div>
+         </div>
          </main>
       
        </body>
