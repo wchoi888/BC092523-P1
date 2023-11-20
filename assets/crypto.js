@@ -252,3 +252,9 @@ var matchCrypto = function(storedCrypto) {
     loadFiatCurrencies(crypto);
   })
 
+  //Clear Storage button click event
+  $('#clear-btn').click(function() {
+    localStorage.clear()
+    $('.storedCrypto-container').html("");
+  })
+
