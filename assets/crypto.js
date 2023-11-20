@@ -1,4 +1,4 @@
-//DOM elements
+//Global DOM elements
 var searchBtn = document.getElementById("search-btn");
 var cryptoText = document.getElementById("tile-container");
 var selectField = document.getElementById("crypto");
@@ -70,7 +70,6 @@ function displayCrypto(response, crypto) {
 
 
   //Conversion Display
- 
   var convertedTitleEL ='<h2 class="conversion-title" style= "font-style:italic; margin-bottom:8px;">Cryptocurrency Conversion against 4 Major Fiat Currencies</h2>';
   $('.conversion-container').prepend(convertedTitleEL);
 
@@ -98,7 +97,7 @@ function displayCrypto(response, crypto) {
 
   addToLocal(crypto);
   }
-
+//Loads Crypto Currency API (runs when page loads)
 function loadCryptoUrl() {
   fetch(cryptoUrl, {
     method: "GET",
@@ -116,12 +115,14 @@ function loadCryptoUrl() {
     })
     .catch(function (errorResponse) {
       if (errorResponse.text) {
+        displayWarning("Error Response (Status: "+errorResponse.status+")");
         errorResponse.text().then(function (errorMessage) {
         });
       }
     });
 }
 
+//Fetches fiat currency API data and then passes results into the Display Crypto data
 function loadFiatCurrencies(crypto) {
   fetch(currenciesUrl, {
     method: "GET",
@@ -139,12 +140,14 @@ function loadFiatCurrencies(crypto) {
     })
     .catch(function (errorResponse) {
       if (errorResponse.text) {
+        displayWarning("Error Response (Status: "+errorResponse.status+")");
         errorResponse.text().then(function (errorMessage) {
         });
       }
     });
 }
-
+//Processes Crypto API Data
+//Assigns crypto data to variable and iterates through crypto currencies to create options for the select field
 function processData(response) {
   cryptoData = response.data;
   for (var i = 0; i < cryptoData.length; i++) {
@@ -158,6 +161,7 @@ function processData(response) {
  
 }
 
+//Functionality for search feature
 function searchCurrencies() {
   var searchValue = searchField.value.trim();
 
@@ -183,12 +187,15 @@ function searchCurrencies() {
   var crypto = selectField.value;
   loadFiatCurrencies(crypto);
 }
-
+//Event listener for select field
 selectField.addEventListener("change", function () {
   var selectedCrypto = selectField.value;
   loadFiatCurrencies(selectedCrypto)
 });
+//Event listener for search button
 searchBtn.addEventListener("click", searchCurrencies);
+
+//Event listener for when enter key is pressed
 searchField.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
     searchCurrencies();
